@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>EJS Engine</title>
+    <link rel="stylesheet" src="https://assets.digitalocean.com/bui/latest/bui.css">
+    <script src="https://assets.digitalocean.com/bui/latest/bui.css"></script>
+  </head>
+  <body>
+    <style>
+      /* This is vanilla CSS inline on this page itself as a demo */
+      .Header {
+        /* Preference to use our variables when writing in Sass */
+        border-bottom: $bui-border-width solid #f1f1f1; /* border variable should be used */
+        padding-bottom: 16px; /* whitespace variable should be used */
+      }
+    </style>
+
+    <div class="Header bui-Inline">
+      <a href="/">
+        <svg class="Icon bui-Icon--xlarge bui-Icon--blue"><use xlink:href="#sammy"></use></svg>
+      </a>
+    </div>
+    <main class="bui-u-mt--large">
+      <h1>Twitter</h1>
+      <form action="/tweets" method="post" enctype="multipart/form-data">
+        <input type="text" name="body"></input>
+        <input type="file" name="photo"></input>
+        <input type="submit" value="tweet"></input>
+      </form>
+      <table>
+        <% for(var i=0; i < tweets.length; i++) { %>
+          <tr>
+            <td>@<%= tweets[i].username %></td>
+            <td><%= tweets[i].body %></td>
+            <% if (tweets[i].imagePath) { %>
+              <td><img src="/photos/<%= tweets[i].imagePath %>" width='200' height='200'/></td>
+            <% } %>
+          </tr>
+        <% } %>
+      </table>
+    </main>
+    <div class="bui-u-hidden">
+      @include('https://assets.digitalocean.com/bui/latest/bui-icons.svg')
+    </div>
+  </body>
+</html>
+
