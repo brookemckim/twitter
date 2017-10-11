@@ -2,25 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>EJS Engine</title>
-    <link rel="stylesheet" src="https://assets.digitalocean.com/bui/latest/bui.css">
-    <script src="https://assets.digitalocean.com/bui/latest/bui.css"></script>
+    <title>Twitter</title>
+    <link rel="stylesheet" type="text/css" href="https://assets.digitalocean.com/bui/latest/bui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://assets.digitalocean.com/bui/latest/bui.js"></script>
   </head>
   <body>
-    <style>
-      /* This is vanilla CSS inline on this page itself as a demo */
-      .Header {
-        /* Preference to use our variables when writing in Sass */
-        border-bottom: $bui-border-width solid #f1f1f1; /* border variable should be used */
-        padding-bottom: 16px; /* whitespace variable should be used */
-      }
-    </style>
-
-    <div class="Header bui-Inline">
-      <a href="/">
-        <svg class="Icon bui-Icon--xlarge bui-Icon--blue"><use xlink:href="#sammy"></use></svg>
-      </a>
-    </div>
     <main class="bui-u-mt--large">
       <h1>Twitter</h1>
       <form action="/tweets" method="post" enctype="multipart/form-data">
