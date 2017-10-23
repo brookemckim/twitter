@@ -8,25 +8,34 @@
     <script src="https://assets.digitalocean.com/bui/latest/bui.js"></script>
   </head>
   <body>
-    <main class="bui-u-mt--large">
+    <main class="bui-GridContainer bui-u-flexCenter">
       <h1>Twitter</h1>
-      <form action="/tweets" method="post" enctype="multipart/form-data">
-        <input type="text" name="body"></input>
-        <input type="file" name="photo"></input>
-        <input type="submit" value="tweet"></input>
-      </form>
-      <table>
-        <% for(var i=0; i < tweets.length; i++) { %>
-          <tr>
-            <td>@<%= tweets[i].username %></td>
-            <td><%= tweets[i].body %></td>
-            <% if (tweets[i].imagePath) { %>
-              <td><img src="/photos/<%= tweets[i].imagePath %>" width='200' height='200'/></td>
-            <% } %>
-          </tr>
-        <% } %>
-      </table>
+
+      <section class="bui-Section bui-Section--borderTop bui-Col-8">
+        <form action="/tweets" method="post" enctype="multipart/form-data" class="bui-Form--spacing">
+          <input type="text" name="user" placeholder="What is your name?"></input>
+          <input type="text" name="body" placeholder="What's Happening?"></input>
+          <input type="file" name="photo"></input>
+          <input class="bui-Button bui-Button--primary" type="submit" value="tweet"></input>
+        </form>
+      </section>
+
+
+      <section class="bui-Section bui-Col-8">
+        <ul>
+          <% for(var i=0; i < tweets.length; i++) { %>
+            <li>
+              <p>@<%= tweets[i].user %></p>
+              <p><%= tweets[i].body %></p>
+              <% if (tweets[i].imagePath) { %>
+                <img src="/photos/<%= tweets[i].imagePath %>" width='200' height='200'/>
+              <% } %>
+            </li>
+          <% } %>
+        </ul>
+      </section>
     </main>
+
     <div class="bui-u-hidden">
       @include('https://assets.digitalocean.com/bui/latest/bui-icons.svg')
     </div>

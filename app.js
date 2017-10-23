@@ -46,7 +46,7 @@ app.get('/', function(req, res){
 		if(err) {
 			console.log(err);
 		} else {
-			res.render('index', { tweets: tweets })
+			res.render('index', { tweets: tweets.reverse() })
 		}
 	});
 });
@@ -54,9 +54,12 @@ app.get('/', function(req, res){
 app.post('/tweets', upload.single('photo'), function(req, res) {
 	var tweet = new Tweet({
 		user: req.body.user,
-		body: req.body.body,
-	  imagePath: req.file.filename
+		body: req.body.body
 	});
+
+  if (req.file) {
+	  tweet.imagePath = req.file.filename;
+  }
 
 	tweet.save().then(function() {
 		res.redirect('/')
