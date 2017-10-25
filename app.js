@@ -16,7 +16,10 @@ app.set('view engine', 'ejs');
 
 
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost:27017/twitter').then(function() {
+
+var dbHost = process.env.DBHOST || "localhost";
+
+mongoose.connect('mongodb://'+dbHost+':27017/twitter').then(function() {
 	console.log('Start');
 }).catch(function(err) {
   console.error('App starting error:', err.stack);

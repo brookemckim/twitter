@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DBHOST=db
+  db:
+    image: mongo:3.0
+    ports:
+      - "27017:27017"
+
