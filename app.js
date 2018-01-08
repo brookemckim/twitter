@@ -6,7 +6,7 @@ var path = require('path')
 var uuidv4 = require('uuid/v4');
 
 var app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
