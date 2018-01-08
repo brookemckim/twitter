@@ -18,6 +18,7 @@ app.set('view engine', 'ejs');
 mongoose.Promise = require('bluebird');
 
 var dbHost = process.env.DBHOST || "localhost";
+global.databaseHost = dbHost;
 
 mongoose.connect('mongodb://'+dbHost+':27017/twitter').then(function() {
 	console.log('Start');
