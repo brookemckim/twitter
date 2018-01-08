@@ -1,7 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var multer  = require('multer')
 var path = require('path')
 var uuidv4 = require('uuid/v4');
 
@@ -13,7 +12,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
-
 
 mongoose.Promise = require('bluebird');
 
@@ -28,15 +26,26 @@ mongoose.connect('mongodb://'+dbHost+':27017/twitter').then(function() {
 
 var Tweet = require('./Tweet');
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/photos')
-  },
-  filename: function (req, file, cb) {
+var aws      = require('aws-sdk');
+var multer   = require('multer')
+var multerS3 = require('multer-s3')
+
+var spaces = new aws.S3({
+  accessKeyId: process.env.SPACES_ACCESS_KEY,
+  secretAccessKey: process.env.SPACES_SECRET_KEY,
+  endpoint: process.env.SPACES_ENDPOINT,
+  signatureVersion: "v2"
+})
+
+var storage = multerS3({
+  s3: spaces,
+  bucket: process.env.SPACES_BUCKET,
+  acl: 'public-read',
+  key: function(req, file, cb) {
 		var ext = path.extname(file.originalname);
     cb(null, uuidv4() + ext);
   }
-})
+});
 
 var upload = multer({ storage: storage })
 
@@ -61,7 +70,7 @@ app.post('/tweets', upload.single('photo'), function(req, res) {
 	});
 
   if (req.file) {
-	  tweet.imagePath = req.file.filename;
+	  tweet.imagePath = req.file.location;
   }
 
 	tweet.save().then(function() {

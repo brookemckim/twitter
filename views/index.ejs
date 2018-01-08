@@ -28,7 +28,7 @@
               <p>@<%= tweets[i].user %></p>
               <p><%= tweets[i].body %></p>
               <% if (tweets[i].imagePath) { %>
-                <img src="/photos/<%= tweets[i].imagePath %>" width='200' height='200'/>
+                <img src="<%= tweets[i].imagePath %>" width='200' height='200'/>
               <% } %>
             </li>
           <% } %>
